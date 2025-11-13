@@ -31,25 +31,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         // Example endpoint for this app
-        val mUrl = "https://printess-account.s3.eu-central-1.amazonaws.com/buyer-test-android.html"
+        val mUrl = "https://account.printess.com/buyer-test-android.html"
 
         val printessView = WebView(this.baseContext)
+        // Clearing Cache might be required if you update your endpoint
+        printessView.clearCache(true)
         setContentView(printessView)
         printessView.loadUrl(mUrl)
 //        This will register the interface in your web endpoints' context, you need to call your function from this
         printessView.addJavascriptInterface(WebAppInterface(this.baseContext), "printess_android")
 
-//      Needed for old Printess UI
-//        printessView.webViewClient = object : WebViewClient() {
-//            override fun onPageFinished(view: WebView?, url: String?) {
-//                view?.loadUrl(
-// //                    Insert your shop Token below
-//                    "javascript:startPrintess('eyJhbGciOiJSUzI1NiIsImtpZCI6InByaW50ZXNzLXNhYXMtYWxwaGEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmN2Y3ZThjZmI3OGQ0NmE2YjcyNzViM2FjZGE2ZjY2NSIsImp0aSI6IjdxVHNJelJ0elplWEpuMHdGb0JtRm55TGk1Z1VNUk1aIiwicm9sZSI6InNob3AiLCJuYmYiOjE3NDcwMzMwOTEsImV4cCI6MjA2MjM5MzA5MSwiaWF0IjoxNzQ3MDMzMDkxLCJpc3MiOiJQcmludGVzcyBHbWJIICYgQ28uS0ciLCJhdWQiOiJwcmludGVzcy1zYWFzIn0.WiiZjkSIs380JV9w7LVQOScaa5wWTiZTHOKyT_RAO4LEDg-QHvdtTaQGJXaTu43K8DsRI5XAj3Irhcd21xcarZJEbZ1mrymNNtoDuHRUbEEmAmHRcbP0ZsXHmsWfXdrBv_mA4SJx-ny9uQIJsnzr5LuyzJolU9EhNPUxwddi1jIKqKvP2CFNkE8OFeZrLwiehGq11WLWHaDOt7NwB3JzHu77m2kCM_3iFHpHp0pA2W4uX0s7oBjcYTQUrLRJpctmEzAOXL_ufQAVz6tq9x3sM65o2LqRDcGFHBgYqZUD5Fb7Ba_QZuy-GX_TVyqNYpjMW55pliBlS08eQvOJ3bMU4zMM3KFBoT9YnaEXP1mZT4py341TWjTqvFoiRKKbMKATYeFymN9uE_VDOK0os-4tCOfvtdMvdyTTRew41plgr0sWReKfUgGOvgxfKFJ2WRsbE9iuceKzlf_pPk_Ws07p2ICwIImxWeEPEi_d9KASvqj7-njcsfijrRtPlWjbXRlFSK9Q1jdfvnhqOxmYjYKYVrRCnBFG3Sk9EKvqF94qeFz3htibIpijIWcrKvSzitHg_RfI948OsunxDCDRzNCCH4N0ElVJwUB-W35JSZpL48h3iomMR10LCW74NgN30Yhmd3olCPnRfF6QaK7wlrTnqqFeJamq9UzwQQbM5UaooGQ','Simple Android Example', 'draft', 'Some-Unique-Basket-Or-Session-Id', 'someShopUserId', 'backButtonCallback', 'addToBasketCallback');"
-//                )
-//            }
-//        }
         printessView.webChromeClient = object : WebChromeClient() {
-
             override fun onShowFileChooser(
                 webView: WebView?,
                 filePathCallback: ValueCallback<Array<Uri>>?,
